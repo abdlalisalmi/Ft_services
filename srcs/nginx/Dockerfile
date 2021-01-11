@@ -26,10 +26,7 @@ COPY index/index.html /www/index.html
 COPY index/index.css /www/index.css
 COPY index/index.js /www/index.js
 
-# Here we go
-COPY start.sh ./start.sh
-RUN chmod +x /start.sh
-CMD sh ./start.sh
+CMD ["nginx","-g","daemon off;"]
 
 EXPOSE 80
 EXPOSE 443
