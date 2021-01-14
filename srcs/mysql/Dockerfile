@@ -1,16 +1,15 @@
 FROM alpine:latest
 
+#in stall the packages
 RUN apk update
-RUN apk add supervisor mysql mysql-client
+RUN apk add mysql mysql-client
 
-# copy supervisord configuration file
-COPY supervisord.conf /etc/supervisord.conf
+# MySql configurations
+COPY my.cnf /etc/my.cnf
 
+# Wordpress database
 COPY wordpress_db.sql /wordpress_db.sql
 
-
-
-# CMD ["supervisord", "-c", "/etc/supervisord.conf", "-s"]
 COPY start.sh /start.sh
 RUN chmod +x start.sh
 
