@@ -2,10 +2,12 @@ FROM alpine:latest
 
 # install packages
 RUN apk update
-RUN apk add nginx
+RUN apk add nginx openssh openrc openssl --no-cache
 
 # create the user that the web server will use
 RUN adduser -D -g 'www' www
+
+RUN rc-update add sshd && rc-status && touch /run/openrc/softlevel && rc-service sshd start
 
 # setup the web server files and permitions
 RUN mkdir /www
@@ -13,12 +15,20 @@ RUN chown -R www:www /www
 RUN chown -R www:www /var/lib/nginx
 RUN mkdir -p /run/nginx
 
-#SSL configuration
+# SSL configuration
 RUN mkdir /etc/nginx/ssl
 RUN chown -R root:root /etc/nginx/ssl
 RUN chmod -R 600 /etc/nginx/ssl
-COPY ssl/localhost.crt /etc/nginx/ssl/localhost.crt
-COPY ssl/localhost.key /etc/nginx/ssl/localhost.key
+
+# We create SSH user and SSL key
+RUN mkdir /var/run/sshd
+RUN adduser -D user
+RUN echo "user:password"|chpasswd
+RUN ssh-keygen -A
+# We customize the SSH welcome message
+RUN echo 'Welcome to SSH Mode (Ft-Services By aes-salm)' > /etc/motd
+# RUN sed -i 's/#\?PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt
 
 # Nginx config file and web page
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -26,7 +36,10 @@ COPY index/index.html /www/index.html
 COPY index/index.css /www/index.css
 COPY index/index.js /www/index.js
 
-CMD ["nginx","-g","daemon off;"]
+COPY start.sh /start.sh
+RUN chmod +x start.sh
+
+CMD ./start.sh
 
 EXPOSE 80
 EXPOSE 443
