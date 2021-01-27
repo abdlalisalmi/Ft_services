@@ -1,12 +1,14 @@
-FROM alpine:latest
+FROM alpine:3.11
 
 RUN apk update
-RUN apk add supervisor
+RUN apk add supervisor openssl
 RUN apk add nginx
 RUN apk add wget curl php7 php7-fpm php7-mysqli php7-mbstring php7-json php7-session
 
 # create the user that the web server will use
 RUN adduser -D -g 'www' www
+
+# RUN rc-update add php-fpm7 && rc-status && touch /run/openrc/softlevel && rc-service php-fpm7 start
 
 # setup the web server files and permissions
 RUN mkdir /www
@@ -18,14 +20,10 @@ RUN mkdir -p /run/nginx
 COPY supervisord.conf /etc/supervisord.conf
 
 # Nginx config file and web page
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 #SSL configuration
-RUN mkdir /etc/nginx/ssl
-RUN chown -R root:root /etc/nginx/ssl
-RUN chmod -R 600 /etc/nginx/ssl
-COPY nginx/ssl/localhost.crt /etc/nginx/ssl/localhost.crt
-COPY nginx/ssl/localhost.key /etc/nginx/ssl/localhost.key
+# RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt
 
 # Wordpress configuration
 COPY wordpress.tar.gz ./
@@ -36,7 +34,7 @@ RUN rm wordpress.tar.gz
 # COPY wp-config.php /var/www/html/wordpress/
 
 
-CMD ["supervisord", "-c", "/etc/supervisord.conf", "-s"]
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
 # CMD ["nginx","-g","daemon off;"]
 
 EXPOSE 5050

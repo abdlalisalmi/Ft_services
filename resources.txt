@@ -9,3 +9,8 @@ NGINX:
                 https://riptutorial.com/nginx/example/21680/redirect-vs-reverse-proxy
         [3] Generate SSL certificate:
                 https://www.humankode.com/ssl/create-a-selfsigned-certificate-for-nginx-in-5-minutes
+
+FTPS:
+        [1] AlpineLinux 3.6: Install vsftpd for FTP server
+                https://www.hiroom2.com/2017/08/22/alpinelinux-3-6-vsftpd-en/
+                https://www.howtoforge.com/tutorial/how-to-install-and-configure-vsftpd/

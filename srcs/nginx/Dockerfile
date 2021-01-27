@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.11
 
 # install packages
 RUN apk update
@@ -16,19 +16,17 @@ RUN chown -R www:www /var/lib/nginx
 RUN mkdir -p /run/nginx
 
 # SSL configuration
-RUN mkdir /etc/nginx/ssl
-RUN chown -R root:root /etc/nginx/ssl
-RUN chmod -R 600 /etc/nginx/ssl
+RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt
+
 
 # We create SSH user and SSL key
 RUN mkdir /var/run/sshd
 RUN adduser -D user
 RUN echo "user:password"|chpasswd
 RUN ssh-keygen -A
-# We customize the SSH welcome message
 RUN echo 'Welcome to SSH Mode (Ft-Services By aes-salm)' > /etc/motd
 # RUN sed -i 's/#\?PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt
+
 
 # Nginx config file and web page
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -38,7 +36,6 @@ COPY index/index.js /www/index.js
 
 COPY start.sh /start.sh
 RUN chmod +x start.sh
-
 CMD ./start.sh
 
 EXPOSE 80
