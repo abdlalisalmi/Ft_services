@@ -12,9 +12,9 @@ spec:
     app: wordpress
   ports:
   
-  - name: wp
+  - name: wp-port
     port: 5050
-    targetPort: 5050
+    targetPort: 80
 
 ---
 
@@ -39,5 +39,5 @@ spec:
         image: wordpress_service
         imagePullPolicy: Never
         ports:
-        - name: wp
+        - name: wp-port
           containerPort: 5050
