@@ -22,9 +22,6 @@ COPY supervisord.conf /etc/supervisord.conf
 # Nginx config file and web page
 COPY nginx.conf /etc/nginx/nginx.conf
 
-#SSL configuration
-RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt
-
 # Wordpress configuration
 COPY wordpress.tar.gz ./
 RUN tar -xvf wordpress.tar.gz
