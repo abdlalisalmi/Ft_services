@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  type: ClusterIP
+  clusterIP: 10.106.255.81
+  selector:
+    app: mysql
+  ports:
+  - name: my
+    port: 3306
+    targetPort: 3306
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql_service
+        imagePullPolicy: Never
+        ports:
+        - name: my
+          containerPort: 3306
+        volumeMounts:
+        - name: mysql
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql
+        persistentVolumeClaim:
+          claimName: mysql
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

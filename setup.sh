@@ -21,8 +21,12 @@ echo "Install MetalLB"
 # echo "Building images..."
 #     docker build -t nginx_service ./srcs/nginx
 #     docker build -t wordpress_service ./srcs/wordpress
+#     docker build -t phpmyadmin_service ./srcs/phpmyadmin
+#     docker build -t mysql_service ./srcs/mysql
 
 
 # echo "Creating pods and services..."
 #     kubectl apply -f ./srcs/nginx.yaml
 #     kubectl apply -f ./srcs/wordpress.yaml
+#     kubectl apply -f ./srcs/phpmyadmin.yaml
+#     kubectl apply -f ./srcs/mysql.yaml

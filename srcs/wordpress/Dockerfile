@@ -28,7 +28,7 @@ RUN tar -xvf wordpress.tar.gz
 RUN cp -r wordpress /var/www/html/
 RUN rm wordpress.tar.gz
 # RUN rm /var/www/html/wordpress/wp-config-sample.php
-# COPY wp-config.php /var/www/html/wordpress/
+COPY wp-config.php /var/www/html/
 
 
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]

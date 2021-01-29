@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.11
 
 RUN apk update
 RUN apk add supervisor
@@ -18,14 +18,7 @@ RUN mkdir -p /run/nginx
 COPY supervisord.conf /etc/supervisord.conf
 
 # Nginx config file and web page
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
-
-#SSL configuration
-RUN mkdir /etc/nginx/ssl
-RUN chown -R root:root /etc/nginx/ssl
-RUN chmod -R 600 /etc/nginx/ssl
-COPY nginx/ssl/localhost.crt /etc/nginx/ssl/localhost.crt
-COPY nginx/ssl/localhost.key /etc/nginx/ssl/localhost.key
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # PhpMyAdmin configuration
 COPY phpMyAdmin-4.9.0.1-english.tar.gz /phpMyAdmin-4.9.0.1-english.tar.gz
@@ -34,7 +27,7 @@ RUN mv phpMyAdmin-4.9.0.1-english phpmyadmin
 RUN cp -r phpmyadmin /var/www/html/
 
 
-CMD ["supervisord", "-c", "/etc/supervisord.conf", "-s"]
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
 # CMD ["nginx","-g","daemon off;"]
 
 EXPOSE 5000
