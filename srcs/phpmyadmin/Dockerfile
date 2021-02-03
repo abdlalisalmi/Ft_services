@@ -26,6 +26,15 @@ RUN tar -xvf phpMyAdmin-4.9.0.1-english.tar.gz
 RUN mv phpMyAdmin-4.9.0.1-english phpmyadmin
 RUN cp -r phpmyadmin /var/www/html/
 
+# PHPMyAdmin config file
+COPY phpmyadmin.inc.php /var/www/html/config.inc.php
+
+# Telegraf setup
+RUN apk add telegraf --no-cache --repository http://dl-2.alpinelinux.org/alpine/edge/community
+RUN mkdir -p /etc/telegraf
+COPY telegraf.conf /etc/telegraf/telegraf.conf
+
+COPY start.sh /start.sh
 
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
 # CMD ["nginx","-g","daemon off;"]

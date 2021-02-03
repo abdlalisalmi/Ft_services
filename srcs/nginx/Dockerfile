@@ -25,7 +25,6 @@ RUN adduser -D user
 RUN echo "user:password"|chpasswd
 RUN ssh-keygen -A
 RUN echo 'Welcome to SSH Mode (Ft-Services By aes-salm)' > /etc/motd
-# RUN sed -i 's/#\?PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 
 # Nginx config file and web page
@@ -33,6 +32,11 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY index/index.html /www/index.html
 COPY index/index.css /www/index.css
 COPY index/index.js /www/index.js
+
+# Telegraf setup
+RUN apk add telegraf --no-cache --repository http://dl-2.alpinelinux.org/alpine/edge/community
+RUN mkdir -p /etc/telegraf
+COPY telegraf.conf /etc/telegraf/telegraf.conf
 
 COPY start.sh /start.sh
 RUN chmod +x start.sh
