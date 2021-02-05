@@ -5,8 +5,8 @@ RUN apk update
 RUN apk add grafana --no-cache --repository http://dl-2.alpinelinux.org/alpine/edge/community
 
 COPY datasource.yaml /usr/share/grafana/conf/provisioning/datasources/
-COPY dashboard.yaml /usr/share/grafana/conf/provisioning/dashboards/
-COPY dashboards/*.json /usr/share/grafana/conf/provisioning/dashboards/
+# COPY dashboard.yaml /usr/share/grafana/conf/provisioning/dashboards/
+# COPY dashboards/*.json /usr/share/grafana/conf/provisioning/dashboards/
 
 
 # Telegraf setup
