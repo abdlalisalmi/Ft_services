@@ -21,15 +21,6 @@ echo "Install MetalLB"
     kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
     kubectl apply -f metallb.yaml
 
-# echo "Remove images..."
-    docker rmi nginx_service
-    docker rmi mysql_service
-    docker rmi wordpress_service
-    docker rmi phpmyadmin_service
-    docker rmi ftps_service
-    docker rmi influxdb_service
-    docker rmi grafana_service
-
 # echo "Building images..."
     docker build -t nginx_service ./srcs/nginx
     docker build -t mysql_service ./srcs/mysql
@@ -38,7 +29,6 @@ echo "Install MetalLB"
 
     docker build -t ftps_service ./srcs/ftps
     docker build -t influxdb_service ./srcs/influxdb
-
     docker build -t grafana_service ./srcs/grafana
 
 

@@ -2,7 +2,7 @@ FROM alpine:3.11
 
 # install packages
 RUN apk update
-RUN apk add nginx openssh openrc openssl --no-cache
+RUN apk add nginx openssh openrc openssl supervisor --no-cache
 
 # create the user that the web server will use
 RUN adduser -D -g 'www' www
@@ -38,9 +38,14 @@ RUN apk add telegraf --no-cache --repository http://dl-2.alpinelinux.org/alpine/
 RUN mkdir -p /etc/telegraf
 COPY telegraf.conf /etc/telegraf/telegraf.conf
 
-COPY start.sh /start.sh
-RUN chmod +x start.sh
-CMD ./start.sh
+# copy supervisord configuration file
+COPY supervisord.conf /etc/supervisord.conf
+
+# COPY start.sh /start.sh
+# RUN chmod +x start.sh
+# CMD ./start.sh
+
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
 
 EXPOSE 80
 EXPOSE 443

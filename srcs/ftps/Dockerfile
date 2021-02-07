@@ -2,6 +2,7 @@ FROM alpine:3.11
 
 # install packages
 RUN apk update
+RUN apk add supervisor
 RUN apk add vsftpd openrc openssl --no-cache
 
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
@@ -17,6 +18,9 @@ RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ss
 RUN apk add telegraf --no-cache --repository http://dl-2.alpinelinux.org/alpine/edge/community
 RUN mkdir -p /etc/telegraf
 COPY telegraf.conf /etc/telegraf/telegraf.conf
+
+# copy supervisord configuration file
+COPY supervisord.conf /etc/supervisord.conf
 
 COPY start.sh /start.sh
 RUN chmod +x start.sh

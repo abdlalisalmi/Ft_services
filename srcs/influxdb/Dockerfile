@@ -2,6 +2,7 @@ FROM alpine:3.11
 
 # install packages
 RUN apk update
+RUN apk add supervisor
 RUN apk add influxdb --no-cache
 RUN apk add telegraf --no-cache --repository http://dl-2.alpinelinux.org/alpine/edge/community
 
@@ -9,6 +10,8 @@ RUN apk add telegraf --no-cache --repository http://dl-2.alpinelinux.org/alpine/
 RUN mkdir -p /etc/telegraf
 COPY telegraf.conf /etc/telegraf/telegraf.conf
 
+# copy supervisord configuration file
+COPY supervisord.conf /etc/supervisord.conf
 
 COPY start.sh /start.sh
 RUN chmod +x start.sh

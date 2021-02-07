@@ -1,8 +1,5 @@
 #! /bin/bash
 
-# Start telegraf
-/usr/bin/telegraf &
-
 #create necessary folders
 mkdir -p /var/lib/mysql /run/mysqld/
 
@@ -16,6 +13,8 @@ sleep 5
 mysql -u root -e "CREATE DATABASE wordpress_db;CREATE USER 'admin'@'%' IDENTIFIED BY 'admin';GRANT ALL PRIVILEGES ON * . * TO 'admin'@'%';FLUSH PRIVILEGES;"
 mysql -uroot  wordpress_db < wordpress_db.sql
 
+
+# Run supervisord with configuration file
 supervisord -c /etc/supervisord.conf
 
 #avoid container to stop
