@@ -5,12 +5,12 @@ RUN apk update
 RUN apk add supervisor
 RUN apk add vsftpd openrc openssl --no-cache
 
+# RUN rc-update add vsftpd default && rc-status && touch /run/openrc/softlevel
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
 RUN mkdir /srv/ftp && chown nobody:nogroup /srv/ftp && echo "Test FTPS Server" | tee /srv/ftp/test.txt
-
+# Create ftps user
 RUN adduser -D user
 RUN echo "user:password"|chpasswd
-
 # Create SSL key to activate ftpS
 RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem
 
@@ -27,5 +27,5 @@ RUN chmod +x start.sh
 CMD ./start.sh
 
 #avoid container to stop
-# CMD  ["sleep", "infinity"]
+# CMD  ["supervisord", "-c", "/etc/supervisord.conf"]
 EXPOSE 21

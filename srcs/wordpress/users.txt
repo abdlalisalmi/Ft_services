@@ -1,0 +1,12 @@
+
+
+
+ -------------------------------------------
+|  username  ||  Password  ||     Role      |
+ -------------------------------------------
+|   admin    ||   admin    || Administrator |
+|   user1    ||   user1    || Subscriber    |
+|   user2    ||   user2    || Contributor   |
+|   user3    ||   user3    || Author        |
+|   user4    ||   user4    || Editor        |
+ -------------------------------------------

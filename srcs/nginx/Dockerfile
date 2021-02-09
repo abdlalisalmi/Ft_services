@@ -40,11 +40,6 @@ COPY telegraf.conf /etc/telegraf/telegraf.conf
 
 # copy supervisord configuration file
 COPY supervisord.conf /etc/supervisord.conf
-
-# COPY start.sh /start.sh
-# RUN chmod +x start.sh
-# CMD ./start.sh
-
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
 
 EXPOSE 80
