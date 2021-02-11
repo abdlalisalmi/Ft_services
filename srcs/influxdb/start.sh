@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # Start influxdb
 /usr/sbin/influxd & sleep 3
 

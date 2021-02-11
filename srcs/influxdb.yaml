@@ -40,3 +40,25 @@ spec:
         ports:
         - name: influxdb
           containerPort: 8086
+        volumeMounts:
+        - name: influxdb
+          mountPath: /var/lib/influxdb
+      volumes:
+      - name: influxdb
+        persistentVolumeClaim:
+          claimName: influxdb
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: influxdb
+  labels:
+    app: influxdb
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi

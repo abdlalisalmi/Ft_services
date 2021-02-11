@@ -5,10 +5,11 @@
 ssh-keygen -R 192.168.99.103
 
 echo "Starting minikube..."
+    minikube delete
+echo "Starting minikube..."
     minikube start --driver=virtualbox --memory='3072'
     eval $(minikube docker-env) # https://stackoverflow.com/questions/52310599/what-does-minikube-docker-env-mean
     # minikube addons enable metrics-server
-    minikube addons enable dashboard
     minikube dashboard &
 
 
