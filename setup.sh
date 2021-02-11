@@ -4,7 +4,7 @@
 # Remove the old SSH certificate in the IMAC
 ssh-keygen -R 192.168.99.103
 
-echo "Starting minikube..."
+echo "Deleting minikube..."
     minikube delete
 echo "Starting minikube..."
     minikube start --driver=virtualbox --memory='3072'
@@ -17,8 +17,8 @@ echo "Starting minikube..."
 # minikube addons enable ingress  # An Ingress is an API object that defines rules which allow external access to services in a cluster
 
 echo "Install MetalLB"
-    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml
-    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
+    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
+    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
     kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
     kubectl apply -f metallb.yaml
 

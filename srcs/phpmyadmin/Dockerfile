@@ -2,7 +2,7 @@ FROM alpine:3.11
 
 RUN apk update
 RUN apk add supervisor
-RUN apk add nginx
+RUN apk add nginx openssl
 RUN apk add wget curl php7 php7-fpm php7-mysqli php7-mbstring php7-json php7-session
 
 # create the user that the web server will use
