@@ -16,6 +16,20 @@ spec:
     port: 21
     targetPort: 21
 
+  - name: data
+    port: 20
+    targetPort: 20
+
+  - name: min
+    port: 21009
+    targetPort: 21009
+  - name: mid
+    port: 21010
+    targetPort: 21010
+  - name: max
+    port: 21011
+    targetPort: 21011
+
 ---
 
 apiVersion: apps/v1
@@ -41,3 +55,11 @@ spec:
         ports:
         - name: ftps
           containerPort: 21
+        - name: data
+          containerPort: 20
+        - name: min
+          containerPort: 21009
+        - name: mid
+          containerPort: 21010
+        - name: max
+          containerPort: 21011

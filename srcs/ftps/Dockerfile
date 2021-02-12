@@ -28,4 +28,4 @@ CMD ./start.sh
 
 #avoid container to stop
 # CMD  ["supervisord", "-c", "/etc/supervisord.conf"]
-EXPOSE 21
+EXPOSE 21 20 21009-21011
