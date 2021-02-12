@@ -25,6 +25,8 @@ COPY phpMyAdmin-4.9.0.1-english.tar.gz /phpMyAdmin-4.9.0.1-english.tar.gz
 RUN tar -xvf phpMyAdmin-4.9.0.1-english.tar.gz
 RUN mv phpMyAdmin-4.9.0.1-english phpmyadmin
 RUN cp -r phpmyadmin /var/www/html/
+RUN mkdir var/www/html/tmp
+RUN chmod 777 var/www/html/tmp
 
 # PHPMyAdmin config file
 COPY phpmyadmin.inc.php /var/www/html/config.inc.php
