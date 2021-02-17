@@ -20,7 +20,7 @@ echo "Install MetalLB"
     kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
     kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
     kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-    kubectl apply -f metallb.yaml
+    kubectl apply -f ./srcs/yamls/metallb.yaml
 
 # echo "Building images..."
     docker build -t nginx_service ./srcs/nginx
@@ -33,10 +33,10 @@ echo "Install MetalLB"
 
 
 # echo "Creating pods and services..."
-    kubectl apply -f ./srcs/nginx.yaml
-    kubectl apply -f ./srcs/mysql.yaml
-    kubectl apply -f ./srcs/wordpress.yaml
-    kubectl apply -f ./srcs/phpmyadmin.yaml
-    kubectl apply -f ./srcs/ftps.yaml
-    kubectl apply -f ./srcs/influxdb.yaml
-    kubectl apply -f ./srcs/grafana.yaml
+    kubectl apply -f ./srcs/yamls/nginx.yaml
+    kubectl apply -f ./srcs/yamls/mysql.yaml
+    kubectl apply -f ./srcs/yamls/wordpress.yaml
+    kubectl apply -f ./srcs/yamls/phpmyadmin.yaml
+    kubectl apply -f ./srcs/yamls/ftps.yaml
+    kubectl apply -f ./srcs/yamls/influxdb.yaml
+    kubectl apply -f ./srcs/yamls/grafana.yaml
