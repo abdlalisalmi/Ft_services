@@ -16,9 +16,6 @@ RUN chown -R www:www /www
 RUN chown -R www:www /var/lib/nginx
 RUN mkdir -p /run/nginx
 
-# copy supervisord configuration file
-COPY supervisord.conf /etc/supervisord.conf
-
 # Nginx config file and web page
 COPY nginx.conf /etc/nginx/nginx.conf
 
@@ -35,6 +32,11 @@ RUN apk add telegraf --no-cache --repository http://dl-2.alpinelinux.org/alpine/
 RUN mkdir -p /etc/telegraf
 COPY telegraf.conf /etc/telegraf/telegraf.conf
 
+# copy Liveness Probe script
+COPY liveness.py /liveness.py
+
+# copy supervisord configuration file
+COPY supervisord.conf /etc/supervisord.conf
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
 
 EXPOSE 5050

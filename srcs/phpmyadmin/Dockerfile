@@ -36,6 +36,9 @@ RUN apk add telegraf --no-cache --repository http://dl-2.alpinelinux.org/alpine/
 RUN mkdir -p /etc/telegraf
 COPY telegraf.conf /etc/telegraf/telegraf.conf
 
+# copy Liveness Probe script
+COPY liveness.py /liveness.py
+
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
 # CMD ["nginx","-g","daemon off;"]
 

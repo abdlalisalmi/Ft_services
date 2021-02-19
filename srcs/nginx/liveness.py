@@ -2,8 +2,11 @@ import os, sys
 
 def main(argv):
     services = argv[1:]
-    output = os.popen('ps | head -n -4').read()
-    print(output)
+    output = os.popen('ps').read()
+    trim = ''
+    for s in services:
+        trim += f' {s}'
+    output = output.replace(f'python3 liveness.py{trim}', '')
     for service in services:
         if not service in output:
             sys.exit(1)

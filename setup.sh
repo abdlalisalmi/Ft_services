@@ -8,13 +8,7 @@ echo "Deleting minikube..."
     minikube delete
 echo "Starting minikube..."
     minikube start --driver=virtualbox --memory='3072'
-    eval $(minikube docker-env) # https://stackoverflow.com/questions/52310599/what-does-minikube-docker-env-mean
-    # minikube addons enable metrics-server
     minikube dashboard &
-
-
-# echo "[2] Enabling addons..."
-# minikube addons enable ingress  # An Ingress is an API object that defines rules which allow external access to services in a cluster
 
 echo "Install MetalLB"
     kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
@@ -22,7 +16,8 @@ echo "Install MetalLB"
     kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
     kubectl apply -f ./srcs/yamls/metallb.yaml
 
-# echo "Building images..."
+echo "Building images..."
+    eval $(minikube docker-env) # https://stackoverflow.com/questions/52310599/what-does-minikube-docker-env-mean
     docker build -t nginx_service ./srcs/nginx
     docker build -t mysql_service ./srcs/mysql
     docker build -t wordpress_service ./srcs/wordpress
@@ -31,8 +26,7 @@ echo "Install MetalLB"
     docker build -t influxdb_service ./srcs/influxdb
     docker build -t grafana_service ./srcs/grafana
 
-
-# echo "Creating pods and services..."
+echo "Creating pods and services..."
     kubectl apply -f ./srcs/yamls/nginx.yaml
     kubectl apply -f ./srcs/yamls/mysql.yaml
     kubectl apply -f ./srcs/yamls/wordpress.yaml
