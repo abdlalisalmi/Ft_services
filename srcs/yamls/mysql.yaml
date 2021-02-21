@@ -37,9 +37,19 @@ spec:
         ports:
         - name: my
           containerPort: 3306
+
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - /startLiveness.sh
+          initialDelaySeconds: 30
+          periodSeconds: 5
+
         volumeMounts:
         - name: mysql
           mountPath: /var/lib/mysql
+          
       volumes:
       - name: mysql
         persistentVolumeClaim:

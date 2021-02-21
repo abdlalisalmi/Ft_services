@@ -19,6 +19,7 @@ RUN mkdir -p /etc/telegraf
 COPY telegraf.conf /etc/telegraf/telegraf.conf
 
 # copy Liveness Probe script
+RUN echo "python3 liveness.py telegraf mysqld" > /startLiveness.sh
 COPY liveness.py /liveness.py
 
 # copy and run supervisord with configuration file

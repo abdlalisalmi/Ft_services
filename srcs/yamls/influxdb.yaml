@@ -40,6 +40,15 @@ spec:
         ports:
         - name: influxdb
           containerPort: 8086
+          
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - /startLiveness.sh
+          initialDelaySeconds: 30
+          periodSeconds: 5
+
         volumeMounts:
         - name: influxdb
           mountPath: /root/.influxdb

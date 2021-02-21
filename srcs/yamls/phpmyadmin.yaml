@@ -41,3 +41,10 @@ spec:
         ports:
         - name: phpmyadmin
           containerPort: 5000
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - /startLiveness.sh
+          initialDelaySeconds: 30
+          periodSeconds: 5

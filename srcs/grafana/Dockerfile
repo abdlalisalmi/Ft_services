@@ -20,6 +20,7 @@ RUN mkdir -p /etc/telegraf
 COPY telegraf.conf /etc/telegraf/telegraf.conf
 
 # copy Liveness Probe script
+RUN echo "python3 liveness.py telegraf grafana-server" > /startLiveness.sh
 COPY liveness.py /liveness.py
 
 # copy supervisord configuration file

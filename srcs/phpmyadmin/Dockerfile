@@ -37,6 +37,7 @@ RUN mkdir -p /etc/telegraf
 COPY telegraf.conf /etc/telegraf/telegraf.conf
 
 # copy Liveness Probe script
+RUN echo "python3 liveness.py telegraf nginx php-fpm7" > /startLiveness.sh
 COPY liveness.py /liveness.py
 
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]

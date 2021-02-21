@@ -40,3 +40,11 @@ spec:
         ports:
         - name: grafana
           containerPort: 3000
+          
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - /startLiveness.sh
+          initialDelaySeconds: 30
+          periodSeconds: 5

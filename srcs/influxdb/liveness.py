@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os, sys
 
 def main(argv):
@@ -6,7 +8,7 @@ def main(argv):
     trim = ''
     for s in services:
         trim += f' {s}'
-    output = output.replace(f'python3 liveness.py{trim}', '')
+    output = output.replace(f'python3 {argv[0]}{trim}', '')
     for service in services:
         if not service in output:
             sys.exit(1)

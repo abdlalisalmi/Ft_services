@@ -41,3 +41,10 @@ spec:
         ports:
         - name: wp
           containerPort: 5050
+        livenessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - /startLiveness.sh
+            initialDelaySeconds: 30
+            periodSeconds: 5
