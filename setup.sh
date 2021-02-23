@@ -34,3 +34,5 @@ echo "Creating pods and services..."
     kubectl apply -f ./srcs/yamls/ftps.yaml
     kubectl apply -f ./srcs/yamls/influxdb.yaml
     kubectl apply -f ./srcs/yamls/grafana.yaml
+
+    #/usr/share/grafana/data/grafana.db

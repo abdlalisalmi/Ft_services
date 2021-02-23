@@ -5,9 +5,8 @@ RUN apk update
 RUN apk add supervisor
 RUN apk add vsftpd openrc openssl --no-cache
 
-# RUN rc-update add vsftpd default && rc-status && touch /run/openrc/softlevel
+# FTPS Configurations
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
-RUN mkdir /srv/ftp && chown nobody:nogroup /srv/ftp && echo "Test FTPS Server" | tee /srv/ftp/test.txt
 # Create ftps user
 RUN adduser -D user
 RUN echo "user:password"|chpasswd

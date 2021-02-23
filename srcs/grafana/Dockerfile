@@ -8,11 +8,7 @@ COPY grafana-7.4.0.linux-amd64.tar.gz /
 RUN tar -zxvf grafana-7.4.0.linux-amd64.tar.gz
 RUN mv grafana-7.4.0 /usr/share/grafana
 
-
-COPY datasource.yaml /usr/share/grafana/conf/provisioning/datasources/
-COPY dashboard.yaml /usr/share/grafana/conf/provisioning/dashboards/
-COPY dashboards/*.json /usr/share/grafana/conf/provisioning/dashboards/
-
+COPY grafana.db /usr/share/grafana/data/grafana.db
 
 # Telegraf setup
 RUN apk add telegraf --no-cache --repository http://dl-2.alpinelinux.org/alpine/edge/community
