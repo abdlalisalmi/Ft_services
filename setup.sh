@@ -1,19 +1,23 @@
 #!/bin/sh
-# This script setup minikube, builds Docker images, and create pods
+########################################################################################
+#            This script setup minikube, builds Docker images, and create pods         #
+########################################################################################
 
 # Remove the old SSH certificate in the IMAC
-ssh-keygen -R 192.168.99.103
+# ssh-keygen -R 192.168.99.103
 
 echo "Deleting minikube..."
     minikube delete
+
 echo "Starting minikube..."
     minikube start --driver=virtualbox --memory='3072'
     minikube dashboard &
 
-echo "Install MetalLB"
-    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
-    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
+echo "Install MetalLB..."
+    minikube addons enable metallb
+    # The memberlist secret contains the secretkey to encrypt the communication between speakers for the fast dead node detection.
     kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+    # Deploy MetalLB to the cluster
     kubectl apply -f ./srcs/yamls/metallb.yaml
 
 echo "Building images..."
@@ -34,5 +38,3 @@ echo "Creating pods and services..."
     kubectl apply -f ./srcs/yamls/ftps.yaml
     kubectl apply -f ./srcs/yamls/influxdb.yaml
     kubectl apply -f ./srcs/yamls/grafana.yaml
-
-    #/usr/share/grafana/data/grafana.db
