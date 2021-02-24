@@ -1,4 +1,5 @@
 # ft_services
+A System Administration and Networking project
 > :warning: **Warning**: Don't copy/paste code you don't understand: it's bad for you, and for the school. I have put my login in a lot of files to encourage you doing your own version. Have fun !
 ## Introduction
 42 cursus project, about kubernetes and docker, Ft_services will introduce you to Kubernetes. You will discover cluster management and
