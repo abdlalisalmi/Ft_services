@@ -3,6 +3,11 @@
 ## Introduction
 42 cursus project, about kubernetes and docker, Ft_services will introduce you to Kubernetes. You will discover cluster management and
 deployment with Kubernetes. You will virtualize a network and do "clustering".
+The project consists of setting up an infrastructure of different services. To do this, you must use Kubernetes. You will need to set up a multi-service cluster.
+Each service will have to run in a dedicated container.
+Each container must bear the same name as the service concerned and for performance reasons, containers have to be build using Alpine Linux.
+Also, they will need to have a Dockerfile written by you which is called in the setup.sh.
+You will have to build yourself the images that you will use. It is forbidden to take already build images or use services like DockerHub.
 ### :one: Docker:
 Docker is a software platform that allows you to build, test, and deploy applications quickly. Docker packages software into standardized units called containers that have everything the software needs to run including libraries, system tools, code, and runtime. Using Docker, you can quickly deploy and scale applications into any environment and know your code will run.
 #### Docker basics command :white_check_mark:
@@ -79,15 +84,19 @@ InfluxDB is an open-source time series database developed by InfluxData. It is w
 ### Grafana
 Grafana is a multi-platform open source analytics and interactive visualization web application. It provides charts, graphs, and alerts for the web when connected to supported data sources. Grafana Enterprise version with additional capabilities is also available. It is expandable through a plug-in system.
 
-## Useful resources
+## Useful resources :link:
 
 ### NGINX:
-1. configure Nginx in Alpine server : https://wiki.alpinelinux.org/wiki/Nginx
-2. Redirect and reverse proxy on Nginx : https://riptutorial.com/nginx/example/21680/redirect-vs-reverse-proxy
-3. Generate SSL certificate : https://www.humankode.com/ssl/create-a-selfsigned-certificate-for-nginx-in-5-minutes
+1. configure Nginx in Alpine server :
+    - https://wiki.alpinelinux.org/wiki/Nginx
+2. Redirect and reverse proxy on Nginx :
+    - https://riptutorial.com/nginx/example/21680/redirect-vs-reverse-proxy
+4. Generate SSL certificate :
+    - https://www.humankode.com/ssl/create-a-selfsigned-certificate-for-nginx-in-5-minutes
 
 ### FTPS:
-1. Install vsftpd for FTP server : https://www.hiroom2.com/2017/08/22/alpinelinux-3-6-vsftpd-en/
-                https://www.howtoforge.com/tutorial/how-to-install-and-configure-vsftpd/
+1. Install vsftpd for FTP server :
+    - https://www.hiroom2.com/2017/08/22/alpinelinux-3-6-vsftpd-en/
+    - https://www.howtoforge.com/tutorial/how-to-install-and-configure-vsftpd/
 2. Configure FTP to Use SSL/TLS : 
-                https://www.digitalocean.com/community/tutorials/how-to-configure-vsftpd-to-use-ssl-tls-on-an-ubuntu-vps
+    - https://www.digitalocean.com/community/tutorials/how-to-configure-vsftpd-to-use-ssl-tls-on-an-ubuntu-vps
